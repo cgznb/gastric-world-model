@@ -2,6 +2,7 @@
 
 | 版本 | 入口 | 协议 |
 |---|---|---|
+| Event V2 研究分支 | `scripts/run_event_v2.py` | 每种子独立521/65/65，十种子；旧多阶段与新结构同划分对照，所有验证选模封存后才执行测试 |
 | Event Multistage（当前主线） | `scripts/run_event_multistage.py` | 沿用651人及五折十种子，三个事件转移、S2辅助pCR、最终状态复发；50次预训练+50次联合训练 |
 | Complete651 Generated V2（前一版） | `scripts/run_generated651.py` | 完整 CT 对与双标签交集，固定五折、十种子、三个联合训练损失分支 |
 | Generated V2 700 人 | `scripts/run_generated700.py` | 保留缺失掩膜、内层选择/重拟合协议与联合/冻结对照；不能与651结果直接归因比较 |

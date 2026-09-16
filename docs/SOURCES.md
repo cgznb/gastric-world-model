@@ -6,6 +6,11 @@ Snapshot date: 2026-09-16. No original Git history is included.
 |---|---|---|---|
 | `gastric` / `.` | gastric_generated651_cv5_10seeds_20260916/source | complete651 generated V2 | Research code; third-party components retain their own licenses |
 | `gastric_event_multistage` / event modules, entrypoint, tests and protocol | gastric_event_multistage_20260916/source | event-only S0-S3, complete651 fivefold ten seeds | Same research-code and retained third-party terms |
+| `event_v2_research` / event_v2 modules, runner and tests | Authored in this repository on 2026-09-17 | Seed-specific internal holdouts, field tokens, gated stage adapters and ensemble heads | Independent implementations of cited mathematical ideas; no upstream implementation copied |
+
+Event V2 references and actual implementation differences, including upstream
+licenses, are documented in [EVENT_V2_RESEARCH.md](EVENT_V2_RESEARCH.md).
+The new code does not import external research repositories or their checkpoints.
 
 ## Packaging Changes
 

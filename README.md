@@ -5,6 +5,35 @@
 使用 complete651 五折十种子协议。此前的 Generated V2／651、700 人版本与临床基线保留为对照。
 源码来自 2026-09-16 的独立实验目录，不包含患者数据、特征、预测、模型权重或运行日志。
 
+## Event V2 研究分支（2026-09-17）
+
+本分支新增六字段临床 token、阶段专用瓶颈适配、有界残差门控、
+基线/当前状态/变化量读出、四成员参数共享分类头，以及训练集 CT0 遮挡重建。
+逐层维度、公式、公开论文与仓库依据见 [详细设计](docs/EVENT_V2_RESEARCH.md)。
+旧多阶段实现保留，作为新划分下重新训练的对照；新结构的有效性以实际测试结果为准。
+
+每个种子独立进行患者级联合标签分层，651人分为521训练、65验证、65测试。
+十个种子的所有预定模型完成验证集选模后，才执行最终测试；测试集不选模型或种子。
+同一队列已参与历史开发，因此这是新实验的内部留出测试，不是外部验证。
+
+```bash
+python run.py gastric scripts/run_event_v2.py --help
+
+# 只生成并核查各个种子的划分
+python run.py gastric scripts/run_event_v2.py --source-pool /path/to/complete651 --bindings configs/event_bindings.local.json --pool artifacts/event-v2/pool --output artifacts/event-v2/formal --prepare-only
+
+# GPU短验证仅使用训练和验证患者，输出与正式实验分离
+python run.py gastric scripts/run_event_v2.py --source-pool /path/to/complete651 --bindings configs/event_bindings.local.json --pool artifacts/event-v2/pool --output artifacts/event-v2/gpu-smoke --smoke
+
+# 默认分别训练旧多阶段和V2，各十个种子，共40个预训练/联合训练阶段
+python run.py gastric scripts/run_event_v2.py --source-pool /path/to/complete651 --bindings configs/event_bindings.local.json --pool artifacts/event-v2/pool --output artifacts/event-v2/formal
+```
+
+`--families` 可预先指定 `event_v2_no_adapter`、`event_v2_no_mask` 或
+`event_v2_single_member` 消融；必须在看测试结果前决定，并使用新的输出目录。
+结果保存在 `evaluation/test_metrics.csv` 和 `evaluation/report.md`，逐种子报告。
+不按测试结果挑选最佳种子，不混合十个种子的患者预测冒充独立样本。
+
 ## 安装
 
 ```bash
