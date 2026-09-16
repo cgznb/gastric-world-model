@@ -1,0 +1,22 @@
+# Copy this template to paths.local.yaml; the local file is ignored by Git.
+# Paths may be absolute or relative to the repository root.
+paths:
+  data: external/data
+  weights: external/weights
+  artifacts: artifacts
+  cache: .cache
+  workspace: external/workspace
+  remote_data: /path/to/remote/organized
+# Override a single tagged config path instead of reproducing an old layout.
+path_overrides: {}
+# Only legacy BiFM/codec configurations need historical identity fields.
+# Supply private original config roots when those training variants are used.
+# They are read in memory; their identity values are never copied to this repo.
+legacy_config_roots: {}
+# Historical MU missing-mask admission entries are private cohort metadata.
+cohort:
+  mu_missing_baseline: null
+  mu_missing_late: null
+ssh:
+  host: null
+  arguments: [ssh, -o, BatchMode=yes]

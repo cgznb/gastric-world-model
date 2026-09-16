@@ -1,0 +1,110 @@
+project:
+  name: stageworld_gc_paired_ct_os_v1
+  mode: real_images
+  schema_version: '1.0'
+paths:
+  clinical_excel: ${oc.env:STAGEWORLD_CLINICAL_EXCEL,null}
+  field_mapping: configs/field_mapping.weiai-os-v1.yaml
+  identity_hmac_key_file: ${oc.env:STAGEWORLD_HMAC_KEY_FILE,null}
+  reference_pdf: null
+  ct_root: ${oc.env:STAGEWORLD_WEIAI_ROOT,null}
+  pathology_root: null
+  feature_root: ${oc.env:STAGEWORLD_WEIAI_FEATURE_ROOT,null}
+  approved_data_root: ${oc.env:STAGEWORLD_WEIAI_ROOT,null}
+  output_root: artifacts/real/paired-ct-os-v1
+privacy:
+  allow_phi_in_agent_context: false
+  allow_external_tracking: false
+  allow_network_during_training: false
+  identity_map_outside_repo: true
+permissions:
+  allow_weight_download: false
+  allow_remote_code: false
+  allow_long_training: false
+  approved_weight_licenses: []
+clinical:
+  cohort_definition: retrospective_complete_baseline_and_post_neoadjuvant_ct_transition_cohort
+  primary_endpoint: os
+  os_event_mapping:
+    death: 1
+    alive_or_censored: 0
+  baseline_origin_definition: clinical_excel_column_E
+  stage0_definition: after_baseline_ct_is_available_and_not_before_os_origin
+  stage1_definition: immediately_after_post_neoadjuvant_ct_is_available
+  stage2_definition: null
+  pathology_availability_basis: null
+  recurrence_definition: null
+  pcr_definition: null
+  clinical_signoff_version: os-v1_paired-ct-v1_2026-09-08
+  endpoint_confirmed: true
+  time_contract_confirmed: true
+  development_stages:
+  - s0
+  - s1
+  ct_series_selection_policy_version: paired-ct-phase-selection-v1
+model:
+  ct_encoder: pending_selection
+  pathology_encoder: disabled_for_s0_s1
+  pathology_alternatives: []
+  freeze_foundation_encoders: true
+  hidden_dim: 256
+  state_tokens: 24
+  stochastic_dim_per_token: 16
+  use_stochastic_state: true
+  attention_heads: 8
+  transition_blocks: 4
+  observation_blocks: 2
+  resampler_blocks: 2
+  ct_tokens: 16
+  pathology_tokens: 0
+  clinical_input_dim: 8
+  action_input_dim: 8
+  ct_input_dim: 2048
+  pathology_input_dim: 768
+  use_llm_treatment_planner: false
+  use_pixel_generator: false
+  use_counterfactual_diversity: false
+survival:
+  parameterization: piecewise_constant_hazard_rate
+  time_unit: year
+  finite_cutpoints:
+  - 0.0
+  - 1.0
+  - 3.0
+  - 5.0
+  open_tail_interval: true
+  report_horizons_years:
+  - 1.0
+  - 3.0
+  competing_risks_enabled: false
+  num_causes: 1
+training:
+  phases:
+  - baseline
+  - world_pretrain
+  - joint_survival
+  seed: 17
+  comparison_seeds:
+  - 17
+  - 43
+  - 97
+  patient_batch_size: 8
+  optimizer: adamw
+  lr: 0.0002
+  weight_decay: 0.01
+  grad_clip_norm: 1.0
+  mixed_precision: auto
+  target_encoder_policy: frozen_external
+  patient_normalized_losses: true
+  checkpoint_selection: preregistered_stage_average_validation_ibs
+  smoke_max_steps: 10
+  smoke_max_minutes: 5
+  world_pretrain_steps: 10
+  joint_survival_steps: 10
+evaluation:
+  split_strategy: patient_level_random_development_split_pending_site_review
+  external_manifest: null
+  patient_level_resampling: true
+  forbid_test_tuning: true
+  report_non_estimable_metrics: true
+  bootstrap_replicates: 100

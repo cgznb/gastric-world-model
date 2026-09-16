@@ -1,0 +1,40 @@
+protocol:
+  status: draft_requires_signoff
+  version: null
+  estimand: conditional_overall_survival_given_history_available_at_query
+  primary_metric: integrated_brier_score
+  primary_comparisons:
+  - world_model_vs_matched_input_longitudinal_transformer
+  - with_vs_without_future_pathology_supervision
+  stage_queries:
+  - baseline
+  - post_neoadjuvant_ct
+  - pathology_available
+  within_stage_same_risk_set: true
+  clinical_time_signoff: false
+splits:
+  unit: patient
+  group_assets_and_prefixes: true
+  external_center_manifest: null
+  temporal_holdout_definition: null
+  outer_cv_if_no_external: 5
+  inner_validation_strategy: null
+  fit_preprocessors_within_train_only: true
+metrics:
+- time_dependent_auc
+- ipcw_concordance
+- brier_score
+- integrated_brier_score
+- calibration
+uncertainty:
+  patient_paired_bootstrap_replicates: 1000
+  keep_all_stages_together: true
+  report_seed_variation_separately: true
+  compare_models_on_same_bootstrap_indices: true
+  bootstrap_scope: prediction_conditional_on_trained_models
+reporting:
+  obey_followup_support: true
+  preserve_failed_experiments: true
+  forbid_unrun_external_validation_claims: true
+  forbid_causal_treatment_claims: true
+  synthetic_results_separate: true

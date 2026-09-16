@@ -1,0 +1,11 @@
+schema_version: stageworld-evaluation-protocol-v1
+protocol_id: synthetic-os-fixed-horizons-v1
+endpoint: os
+evaluation_role: test
+censoring_rule: development_reference
+horizons_days:
+- 365.25
+- 1095.75
+calibration_fit_role: development
+patient_resampling_unit: patient
+clinical_validation: false

@@ -1,0 +1,43 @@
+workbook:
+  sheet: null
+  group_header_row: null
+  field_header_row: null
+  data_start_row: null
+  expected_header_signature: null
+fields:
+  patient_id:
+    source_header: null
+    source_column: null
+    role: identity_local_only
+  ct_baseline_id:
+    source_header: null
+    source_column: null
+    role: asset_link_local_only
+  ct_post_treatment_id:
+    source_header: null
+    source_column: null
+    role: asset_link_local_only
+  death_status:
+    source_header: null
+    source_column: null
+    role: outcome_only
+    confirmed_value_mapping: null
+  death_date:
+    source_header: null
+    source_column: null
+    role: outcome_only
+  last_followup_date:
+    source_header: null
+    source_column: null
+    role: outcome_only
+  pathology_response:
+    source_header: null
+    source_column: null
+    role: future_label_and_stage2_only
+    confirmed_definition: null
+rules:
+  reject_ambiguous_duplicate_headers: true
+  missing_is_negative: false
+  missing_available_time_is_baseline: false
+  keep_source_provenance: true
+  never_infer_treatment_cycles_from_outcomes: true

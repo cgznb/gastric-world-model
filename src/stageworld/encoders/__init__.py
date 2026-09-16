@@ -1,0 +1,77 @@
+"""Foundation encoder contracts and guarded adapters."""
+
+from .base import (
+    CTGeometry,
+    EncoderOutput,
+    EncoderProvenance,
+    ObservationEncoder,
+    ObservationTokens,
+    PathologyPatchBatch,
+    WSIGeometry,
+    merge_observation_tokens,
+)
+from .gates import EncoderAccess, validate_named_version
+from .medical import (
+    MerlinAdapter,
+    MerlinEncoder,
+    PRISM2Adapter,
+    PRISM2Encoder,
+    StateDictLoadReport,
+    SwinUNETRAdapter,
+    SwinUNETREncoder,
+    TITANAdapter,
+    TITANCONCHEncoder,
+    UNI2HAdapter,
+    UNI2HEncoder,
+    load_state_dict_strictly,
+)
+from .registry import EncoderRegistry, default_encoder_registry
+from .swinunetr import (
+    SWINUNETR_COMPONENT_VERSION,
+    SWINUNETR_FEATURE_DIM,
+    SWINUNETR_PREPROCESS_VERSION,
+    SWINUNETR_SOURCE_VERSION,
+    LegacySwinUNETRPatchMerging,
+    SwinUNETRDeepFeatureBackend,
+    SwinUNETRLoadResult,
+    load_swinunetr_ssl_backbone,
+    map_swinunetr_ssl_state_dict,
+)
+from .synthetic import SyntheticEncoder
+
+__all__ = [
+    "CTGeometry",
+    "EncoderAccess",
+    "EncoderOutput",
+    "EncoderProvenance",
+    "EncoderRegistry",
+    "MerlinAdapter",
+    "MerlinEncoder",
+    "ObservationEncoder",
+    "ObservationTokens",
+    "PRISM2Adapter",
+    "PRISM2Encoder",
+    "PathologyPatchBatch",
+    "StateDictLoadReport",
+    "LegacySwinUNETRPatchMerging",
+    "SWINUNETR_COMPONENT_VERSION",
+    "SWINUNETR_FEATURE_DIM",
+    "SWINUNETR_PREPROCESS_VERSION",
+    "SWINUNETR_SOURCE_VERSION",
+    "SwinUNETRAdapter",
+    "SwinUNETRDeepFeatureBackend",
+    "SwinUNETREncoder",
+    "SwinUNETRLoadResult",
+    "SyntheticEncoder",
+    "TITANAdapter",
+    "TITANCONCHEncoder",
+    "UNI2HAdapter",
+    "UNI2HEncoder",
+    "WSIGeometry",
+    "load_state_dict_strictly",
+    "load_swinunetr_ssl_backbone",
+    "map_swinunetr_ssl_state_dict",
+    "merge_observation_tokens",
+    "validate_named_version",
+    "default_encoder_registry",
+]

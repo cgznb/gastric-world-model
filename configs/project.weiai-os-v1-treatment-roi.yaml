@@ -1,0 +1,88 @@
+project:
+  name: stageworld_gc_gastric_roi_treatment_os_v1
+  mode: real_images
+paths:
+  data_artifact_root: artifacts/real/paired-ct-os-v1-first-acquisition/data/restricted
+  clinical_excel: ${oc.env:STAGEWORLD_CLINICAL_EXCEL,null}
+  approved_data_root: ${oc.env:STAGEWORLD_WEIAI_ROOT,null}
+  identity_hmac_key_file: ${oc.env:STAGEWORLD_HMAC_KEY_FILE,null}
+  feature_root: ${oc.env:STAGEWORLD_GASTRIC_ROI_FEATURE_ROOT,null}
+  treatment_manifest: ${oc.env:STAGEWORLD_TREATMENT_MANIFEST,null}
+  output_root: artifacts/real/gastric-roi-treatment-os-v1
+permissions:
+  allow_weight_download: false
+  allow_remote_code: false
+  allow_long_training: true
+  approved_weight_licenses:
+  - Apache-2.0
+encoders:
+  ct_weight_path: ${oc.env:STAGEWORLD_SWINUNETR_WEIGHT,null}
+  ct_source_version: monai-1.6.0-legacy-merging-v0.9-compatible-v1
+  ct_component_version: swinunetr-ssl-model-swinvit-release-0.8.1
+  ct_preprocess_version: totalseg-2.18.0-total297-resident-3mm-stomach-margin20-cube96-v1
+  ct_inference_precision: bf16
+  segmentation_home: ${oc.env:STAGEWORLD_TOTALSEG_HOME,null}
+clinical:
+  cohort_definition: retrospective_complete_baseline_and_post_neoadjuvant_ct_transition_cohort
+  primary_endpoint: os
+  os_event_mapping:
+    death: 1
+    alive_or_censored: 0
+  baseline_origin_definition: clinical_excel_column_E
+  stage0_definition: after_baseline_ct_is_available_and_not_before_os_origin
+  stage1_definition: immediately_after_post_neoadjuvant_ct_is_available
+  clinical_signoff_version: os-v1_paired-ct-v1_2026-09-08
+  endpoint_confirmed: true
+  time_contract_confirmed: true
+  development_stages:
+  - s0
+  - s1
+  ct_series_selection_policy_version: paired-ct-first-acquisition-selection-v1
+  treatment_summary_cutoff: ${oc.env:STAGEWORLD_TREATMENT_CUTOFF,null}
+model:
+  ct_encoder: swinunetr
+  pathology_encoder: disabled_for_s0_s1
+  pathology_alternatives: []
+  freeze_foundation_encoders: true
+  hidden_dim: 128
+  state_tokens: 8
+  stochastic_dim_per_token: 8
+  use_stochastic_state: true
+  attention_heads: 4
+  transition_blocks: 2
+  observation_blocks: 1
+  resampler_blocks: 1
+  ct_tokens: 8
+  pathology_tokens: 0
+  clinical_input_dim: 8
+  action_input_dim: 8
+  ct_input_dim: 768
+  pathology_input_dim: 768
+survival:
+  time_unit: year
+  finite_cutpoints:
+  - 0.0
+  - 1.0
+  - 3.0
+  - 5.0
+  report_horizons_years:
+  - 1.0
+  - 3.0
+training:
+  seed: 17
+  patient_batch_size: 32
+  lr: 0.0002
+  weight_decay: 0.01
+  grad_clip_norm: 1.0
+  mixed_precision: bf16
+  checkpoint_selection: stage_mean_validation_nll_v1
+  world_pretrain_steps: 160
+  joint_survival_steps: 960
+  development_protocol: gastric-roi-treatment-os-development-v1
+  development_max_epochs: 60
+  development_patience: 10
+  development_max_minutes: 180
+evaluation:
+  split_strategy: fixed_patient_level_random_development_split
+  forbid_test_tuning: true
+  bootstrap_replicates: 100

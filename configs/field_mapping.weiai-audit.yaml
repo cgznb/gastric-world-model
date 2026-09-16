@@ -1,0 +1,68 @@
+workbook:
+  sheet_index: 0
+  group_header_row: null
+  field_header_row: 1
+  data_start_row: 2
+  expected_columns: 90
+fields:
+  row_key:
+    source_column: A
+    role: identity_local_only
+  baseline_origin_candidate:
+    source_column: E
+    role: timeline_candidate
+  treatment_summary:
+    source_column: Z
+    role: available_only_after_confirmed_time
+  gastrectomy_status:
+    source_column: AJ
+    role: clinical_pathway
+  gastrectomy_date:
+    source_column: AK
+    role: timeline_candidate
+  pathology_response_rvt:
+    source_column: AZ
+    role: future_label_and_stage2_only
+  pathology_response_pcr:
+    source_column: BC
+    role: future_label_and_stage2_only
+  pathology_yp_t:
+    source_column: BE
+    role: stage2_only
+  pathology_yp_n:
+    source_column: BF
+    role: blocked_pending_anomaly_review
+  recurrence_status:
+    source_column: BO
+    role: outcome_only_unconfirmed
+  recurrence_duration:
+    source_column: BP
+    role: outcome_only_unconfirmed
+  recurrence_date:
+    source_column: BQ
+    role: outcome_only_unconfirmed
+  os_status:
+    source_column: BS
+    role: outcome_only_unconfirmed
+  os_duration:
+    source_column: BT
+    role: outcome_only_unconfirmed
+  death_date:
+    source_column: BU
+    role: outcome_only_unconfirmed
+  last_followup_date:
+    source_column: BV
+    role: outcome_only_unconfirmed
+  baseline_ct_link:
+    source_column: BW
+    role: asset_link_local_only
+  preop_ct_link:
+    source_column: BZ
+    role: asset_link_local_only
+rules:
+  reject_ambiguous_duplicate_headers: true
+  missing_is_negative: false
+  missing_available_time_is_baseline: false
+  keep_source_provenance: true
+  never_infer_treatment_cycles_from_outcomes: true
+  permit_real_supervised_build: false

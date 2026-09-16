@@ -1,0 +1,967 @@
+[
+  {
+    "path": "configs/evaluation.synthetic.yaml",
+    "source": "gastric",
+    "source_file": "configs/evaluation.synthetic.yaml"
+  },
+  {
+    "path": "configs/experiment_protocol.example.yaml",
+    "source": "gastric",
+    "source_file": "configs/experiment_protocol.example.yaml"
+  },
+  {
+    "path": "configs/field_mapping.example.yaml",
+    "source": "gastric",
+    "source_file": "configs/field_mapping.example.yaml"
+  },
+  {
+    "path": "configs/field_mapping.weiai-audit.yaml",
+    "source": "gastric",
+    "source_file": "configs/field_mapping.weiai-audit.yaml"
+  },
+  {
+    "path": "configs/field_mapping.weiai-os-v1.yaml",
+    "source": "gastric",
+    "source_file": "configs/field_mapping.weiai-os-v1.yaml"
+  },
+  {
+    "path": "configs/project.example.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.example.yaml"
+  },
+  {
+    "path": "configs/project.generated-s1-baseline19.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.generated-s1-baseline19.yaml"
+  },
+  {
+    "path": "configs/project.generated-s1-ct6-drugs.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.generated-s1-ct6-drugs.yaml"
+  },
+  {
+    "path": "configs/project.generated-s1-only-ct6.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.generated-s1-only-ct6.yaml"
+  },
+  {
+    "path": "configs/project.pcr-recurrence-cv5.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.pcr-recurrence-cv5.yaml"
+  },
+  {
+    "path": "configs/project.synthetic.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.synthetic.yaml"
+  },
+  {
+    "path": "configs/project.weiai-audit.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.weiai-audit.yaml"
+  },
+  {
+    "path": "configs/project.weiai-os-v1-first-acquisition.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.weiai-os-v1-first-acquisition.yaml"
+  },
+  {
+    "path": "configs/project.weiai-os-v1-gastric-roi.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.weiai-os-v1-gastric-roi.yaml"
+  },
+  {
+    "path": "configs/project.weiai-os-v1-regimen-roi-100ep.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.weiai-os-v1-regimen-roi-100ep.yaml"
+  },
+  {
+    "path": "configs/project.weiai-os-v1-regimen-roi.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.weiai-os-v1-regimen-roi.yaml"
+  },
+  {
+    "path": "configs/project.weiai-os-v1-treatment-roi.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.weiai-os-v1-treatment-roi.yaml"
+  },
+  {
+    "path": "configs/project.weiai-os-v1-tumor-candidate-roi-100ep.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.weiai-os-v1-tumor-candidate-roi-100ep.yaml"
+  },
+  {
+    "path": "configs/project.weiai-os-v1-tumor-coarse-roi-100ep.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.weiai-os-v1-tumor-coarse-roi-100ep.yaml"
+  },
+  {
+    "path": "configs/project.weiai-os-v1.yaml",
+    "source": "gastric",
+    "source_file": "configs/project.weiai-os-v1.yaml"
+  },
+  {
+    "path": "docs/CLARITY_LICENSE.txt",
+    "source": "gastric",
+    "source_file": "docs/CLARITY_LICENSE.txt"
+  },
+  {
+    "path": "docs/GENERATED_V2_ARCHITECTURE.md",
+    "source": "gastric",
+    "source_file": "docs/GENERATED_V2_ARCHITECTURE.md"
+  },
+  {
+    "path": "docs/GENERATED_V2_SOURCES.md",
+    "source": "gastric",
+    "source_file": "docs/GENERATED_V2_SOURCES.md"
+  },
+  {
+    "path": "docs/LICENSE_AUDIT.md",
+    "source": "gastric",
+    "source_file": "docs/LICENSE_AUDIT.md"
+  },
+  {
+    "path": "pyproject.toml",
+    "source": "gastric",
+    "source_file": "pyproject.toml"
+  },
+  {
+    "path": "scripts/audit_tumor_annotation_headers.py",
+    "source": "gastric",
+    "source_file": "scripts/audit_tumor_annotation_headers.py"
+  },
+  {
+    "path": "scripts/check_generated700_reference.py",
+    "source": "gastric",
+    "source_file": "scripts/check_generated700_reference.py"
+  },
+  {
+    "path": "scripts/compare_generated700.py",
+    "source": "gastric",
+    "source_file": "scripts/compare_generated700.py"
+  },
+  {
+    "path": "scripts/diagnose_generated700_replay.py",
+    "source": "gastric",
+    "source_file": "scripts/diagnose_generated700_replay.py"
+  },
+  {
+    "path": "scripts/finalize_generated_report.py",
+    "source": "gastric",
+    "source_file": "scripts/finalize_generated_report.py"
+  },
+  {
+    "path": "scripts/predict_binary_improvement.py",
+    "source": "gastric",
+    "source_file": "scripts/predict_binary_improvement.py"
+  },
+  {
+    "path": "scripts/run_binary700.py",
+    "source": "gastric",
+    "source_file": "scripts/run_binary700.py"
+  },
+  {
+    "path": "scripts/run_binary_endpoints.py",
+    "source": "gastric",
+    "source_file": "scripts/run_binary_endpoints.py"
+  },
+  {
+    "path": "scripts/run_binary_improvement.py",
+    "source": "gastric",
+    "source_file": "scripts/run_binary_improvement.py"
+  },
+  {
+    "path": "scripts/run_coarse_roi_pipeline.py",
+    "source": "gastric",
+    "source_file": "scripts/run_coarse_roi_pipeline.py"
+  },
+  {
+    "path": "scripts/run_generated651.py",
+    "source": "gastric",
+    "source_file": "scripts/run_generated651.py"
+  },
+  {
+    "path": "scripts/run_generated700.py",
+    "source": "gastric",
+    "source_file": "scripts/run_generated700.py"
+  },
+  {
+    "path": "scripts/run_generated700_full.py",
+    "source": "gastric",
+    "source_file": "scripts/run_generated700_full.py"
+  },
+  {
+    "path": "scripts/run_generated_s1.py",
+    "source": "gastric",
+    "source_file": "scripts/run_generated_s1.py"
+  },
+  {
+    "path": "scripts/run_local_gastric_os.py",
+    "source": "gastric",
+    "source_file": "scripts/run_local_gastric_os.py"
+  },
+  {
+    "path": "scripts/run_local_tumor_pilot.py",
+    "source": "gastric",
+    "source_file": "scripts/run_local_tumor_pilot.py"
+  },
+  {
+    "path": "scripts/tumor_candidate_distance_diagnostic.py",
+    "source": "gastric",
+    "source_file": "scripts/tumor_candidate_distance_diagnostic.py"
+  },
+  {
+    "path": "scripts/verify_generated_inference.py",
+    "source": "gastric",
+    "source_file": "scripts/verify_generated_inference.py"
+  },
+  {
+    "path": "scripts/verify_tumor_pilot.py",
+    "source": "gastric",
+    "source_file": "scripts/verify_tumor_pilot.py"
+  },
+  {
+    "path": "src/stageworld/__init__.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/__init__.py"
+  },
+  {
+    "path": "src/stageworld/artifacts.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/artifacts.py"
+  },
+  {
+    "path": "src/stageworld/baselines.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/baselines.py"
+  },
+  {
+    "path": "src/stageworld/binary700_data.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary700_data.py"
+  },
+  {
+    "path": "src/stageworld/binary700_evaluation.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary700_evaluation.py"
+  },
+  {
+    "path": "src/stageworld/binary700_inference.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary700_inference.py"
+  },
+  {
+    "path": "src/stageworld/binary700_models.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary700_models.py"
+  },
+  {
+    "path": "src/stageworld/binary700_spec.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary700_spec.py"
+  },
+  {
+    "path": "src/stageworld/binary700_statistics.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary700_statistics.py"
+  },
+  {
+    "path": "src/stageworld/binary700_training.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary700_training.py"
+  },
+  {
+    "path": "src/stageworld/binary700_verification.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary700_verification.py"
+  },
+  {
+    "path": "src/stageworld/binary700_workflow.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary700_workflow.py"
+  },
+  {
+    "path": "src/stageworld/binary_baselines.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_baselines.py"
+  },
+  {
+    "path": "src/stageworld/binary_data.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_data.py"
+  },
+  {
+    "path": "src/stageworld/binary_endpoints.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_endpoints.py"
+  },
+  {
+    "path": "src/stageworld/binary_evaluation.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_evaluation.py"
+  },
+  {
+    "path": "src/stageworld/binary_improvement_diagnostics.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_improvement_diagnostics.py"
+  },
+  {
+    "path": "src/stageworld/binary_improvement_evaluation.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_improvement_evaluation.py"
+  },
+  {
+    "path": "src/stageworld/binary_improvement_inference.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_improvement_inference.py"
+  },
+  {
+    "path": "src/stageworld/binary_improvement_spec.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_improvement_spec.py"
+  },
+  {
+    "path": "src/stageworld/binary_improvement_training.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_improvement_training.py"
+  },
+  {
+    "path": "src/stageworld/binary_improvement_workflow.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_improvement_workflow.py"
+  },
+  {
+    "path": "src/stageworld/binary_inference.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_inference.py"
+  },
+  {
+    "path": "src/stageworld/binary_training.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_training.py"
+  },
+  {
+    "path": "src/stageworld/binary_workflow.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/binary_workflow.py"
+  },
+  {
+    "path": "src/stageworld/cache.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/cache.py"
+  },
+  {
+    "path": "src/stageworld/cli.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/cli.py"
+  },
+  {
+    "path": "src/stageworld/config.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/config.py"
+  },
+  {
+    "path": "src/stageworld/ct6_evaluation.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/ct6_evaluation.py"
+  },
+  {
+    "path": "src/stageworld/ct6_training.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/ct6_training.py"
+  },
+  {
+    "path": "src/stageworld/ct6_workflow.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/ct6_workflow.py"
+  },
+  {
+    "path": "src/stageworld/data/__init__.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/__init__.py"
+  },
+  {
+    "path": "src/stageworld/data/audit.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/audit.py"
+  },
+  {
+    "path": "src/stageworld/data/baseline_clinical.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/baseline_clinical.py"
+  },
+  {
+    "path": "src/stageworld/data/contracts.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/contracts.py"
+  },
+  {
+    "path": "src/stageworld/data/ct_preprocessing.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/ct_preprocessing.py"
+  },
+  {
+    "path": "src/stageworld/data/ct_qc.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/ct_qc.py"
+  },
+  {
+    "path": "src/stageworld/data/dicom_index.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/dicom_index.py"
+  },
+  {
+    "path": "src/stageworld/data/event_encoding.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/event_encoding.py"
+  },
+  {
+    "path": "src/stageworld/data/firewall.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/firewall.py"
+  },
+  {
+    "path": "src/stageworld/data/gastric_roi.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/gastric_roi.py"
+  },
+  {
+    "path": "src/stageworld/data/io.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/io.py"
+  },
+  {
+    "path": "src/stageworld/data/outcomes.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/outcomes.py"
+  },
+  {
+    "path": "src/stageworld/data/paired_ct.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/paired_ct.py"
+  },
+  {
+    "path": "src/stageworld/data/split.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/split.py"
+  },
+  {
+    "path": "src/stageworld/data/synthetic.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/synthetic.py"
+  },
+  {
+    "path": "src/stageworld/data/treatment_compact.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/treatment_compact.py"
+  },
+  {
+    "path": "src/stageworld/data/treatment_regimens.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/treatment_regimens.py"
+  },
+  {
+    "path": "src/stageworld/data/treatment_summary.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/treatment_summary.py"
+  },
+  {
+    "path": "src/stageworld/data/tumor_export.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/tumor_export.py"
+  },
+  {
+    "path": "src/stageworld/data/tumor_roi.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/data/tumor_roi.py"
+  },
+  {
+    "path": "src/stageworld/encoders/__init__.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/encoders/__init__.py"
+  },
+  {
+    "path": "src/stageworld/encoders/base.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/encoders/base.py"
+  },
+  {
+    "path": "src/stageworld/encoders/gates.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/encoders/gates.py"
+  },
+  {
+    "path": "src/stageworld/encoders/medical.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/encoders/medical.py"
+  },
+  {
+    "path": "src/stageworld/encoders/registry.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/encoders/registry.py"
+  },
+  {
+    "path": "src/stageworld/encoders/swinunetr.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/encoders/swinunetr.py"
+  },
+  {
+    "path": "src/stageworld/encoders/synthetic.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/encoders/synthetic.py"
+  },
+  {
+    "path": "src/stageworld/errors.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/errors.py"
+  },
+  {
+    "path": "src/stageworld/evaluation.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/evaluation.py"
+  },
+  {
+    "path": "src/stageworld/future_comparators.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/future_comparators.py"
+  },
+  {
+    "path": "src/stageworld/generated651_data.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated651_data.py"
+  },
+  {
+    "path": "src/stageworld/generated651_evaluation.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated651_evaluation.py"
+  },
+  {
+    "path": "src/stageworld/generated651_inference.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated651_inference.py"
+  },
+  {
+    "path": "src/stageworld/generated651_spec.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated651_spec.py"
+  },
+  {
+    "path": "src/stageworld/generated651_verification.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated651_verification.py"
+  },
+  {
+    "path": "src/stageworld/generated651_workflow.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated651_workflow.py"
+  },
+  {
+    "path": "src/stageworld/generated700_data.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated700_data.py"
+  },
+  {
+    "path": "src/stageworld/generated700_evaluation.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated700_evaluation.py"
+  },
+  {
+    "path": "src/stageworld/generated700_inference.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated700_inference.py"
+  },
+  {
+    "path": "src/stageworld/generated700_models.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated700_models.py"
+  },
+  {
+    "path": "src/stageworld/generated700_spec.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated700_spec.py"
+  },
+  {
+    "path": "src/stageworld/generated700_training.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated700_training.py"
+  },
+  {
+    "path": "src/stageworld/generated700_verification.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated700_verification.py"
+  },
+  {
+    "path": "src/stageworld/generated700_workflow.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated700_workflow.py"
+  },
+  {
+    "path": "src/stageworld/generated_evaluation.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated_evaluation.py"
+  },
+  {
+    "path": "src/stageworld/generated_inference.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated_inference.py"
+  },
+  {
+    "path": "src/stageworld/generated_training.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated_training.py"
+  },
+  {
+    "path": "src/stageworld/generated_workflow.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/generated_workflow.py"
+  },
+  {
+    "path": "src/stageworld/inference/__init__.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/inference/__init__.py"
+  },
+  {
+    "path": "src/stageworld/inference/cache.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/inference/cache.py"
+  },
+  {
+    "path": "src/stageworld/inference/contracts.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/inference/contracts.py"
+  },
+  {
+    "path": "src/stageworld/inference/engine.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/inference/engine.py"
+  },
+  {
+    "path": "src/stageworld/losses.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/losses.py"
+  },
+  {
+    "path": "src/stageworld/model/__init__.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/model/__init__.py"
+  },
+  {
+    "path": "src/stageworld/model/compact_residual_binary.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/model/compact_residual_binary.py"
+  },
+  {
+    "path": "src/stageworld/model/components.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/model/components.py"
+  },
+  {
+    "path": "src/stageworld/model/generated_s1.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/model/generated_s1.py"
+  },
+  {
+    "path": "src/stageworld/model/stageworld.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/model/stageworld.py"
+  },
+  {
+    "path": "src/stageworld/model/types.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/model/types.py"
+  },
+  {
+    "path": "src/stageworld/pipeline.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/pipeline.py"
+  },
+  {
+    "path": "src/stageworld/real_report.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/real_report.py"
+  },
+  {
+    "path": "src/stageworld/real_survival.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/real_survival.py"
+  },
+  {
+    "path": "src/stageworld/real_workflow.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/real_workflow.py"
+  },
+  {
+    "path": "src/stageworld/release_scan.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/release_scan.py"
+  },
+  {
+    "path": "src/stageworld/runtime.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/runtime.py"
+  },
+  {
+    "path": "src/stageworld/s1_only_workflow.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/s1_only_workflow.py"
+  },
+  {
+    "path": "src/stageworld/survival.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/survival.py"
+  },
+  {
+    "path": "src/stageworld/synthetic_workflow.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/synthetic_workflow.py"
+  },
+  {
+    "path": "src/stageworld/training.py",
+    "source": "gastric",
+    "source_file": "src/stageworld/training.py"
+  },
+  {
+    "path": "tests/conftest.py",
+    "source": "gastric",
+    "source_file": "tests/conftest.py"
+  },
+  {
+    "path": "tests/test_baselines.py",
+    "source": "gastric",
+    "source_file": "tests/test_baselines.py"
+  },
+  {
+    "path": "tests/test_binary700.py",
+    "source": "gastric",
+    "source_file": "tests/test_binary700.py"
+  },
+  {
+    "path": "tests/test_binary_endpoints.py",
+    "source": "gastric",
+    "source_file": "tests/test_binary_endpoints.py"
+  },
+  {
+    "path": "tests/test_binary_improvement.py",
+    "source": "gastric",
+    "source_file": "tests/test_binary_improvement.py"
+  },
+  {
+    "path": "tests/test_cache.py",
+    "source": "gastric",
+    "source_file": "tests/test_cache.py"
+  },
+  {
+    "path": "tests/test_checkpoint_lineage.py",
+    "source": "gastric",
+    "source_file": "tests/test_checkpoint_lineage.py"
+  },
+  {
+    "path": "tests/test_coarse_roi_pipeline.py",
+    "source": "gastric",
+    "source_file": "tests/test_coarse_roi_pipeline.py"
+  },
+  {
+    "path": "tests/test_coarse_tumor_roi.py",
+    "source": "gastric",
+    "source_file": "tests/test_coarse_tumor_roi.py"
+  },
+  {
+    "path": "tests/test_config.py",
+    "source": "gastric",
+    "source_file": "tests/test_config.py"
+  },
+  {
+    "path": "tests/test_ct6.py",
+    "source": "gastric",
+    "source_file": "tests/test_ct6.py"
+  },
+  {
+    "path": "tests/test_ct_preprocessing.py",
+    "source": "gastric",
+    "source_file": "tests/test_ct_preprocessing.py"
+  },
+  {
+    "path": "tests/test_ct_qc.py",
+    "source": "gastric",
+    "source_file": "tests/test_ct_qc.py"
+  },
+  {
+    "path": "tests/test_data_audit.py",
+    "source": "gastric",
+    "source_file": "tests/test_data_audit.py"
+  },
+  {
+    "path": "tests/test_data_firewall.py",
+    "source": "gastric",
+    "source_file": "tests/test_data_firewall.py"
+  },
+  {
+    "path": "tests/test_data_outcomes.py",
+    "source": "gastric",
+    "source_file": "tests/test_data_outcomes.py"
+  },
+  {
+    "path": "tests/test_data_split_io.py",
+    "source": "gastric",
+    "source_file": "tests/test_data_split_io.py"
+  },
+  {
+    "path": "tests/test_dicom_index.py",
+    "source": "gastric",
+    "source_file": "tests/test_dicom_index.py"
+  },
+  {
+    "path": "tests/test_encoder_adapters.py",
+    "source": "gastric",
+    "source_file": "tests/test_encoder_adapters.py"
+  },
+  {
+    "path": "tests/test_encoder_contracts.py",
+    "source": "gastric",
+    "source_file": "tests/test_encoder_contracts.py"
+  },
+  {
+    "path": "tests/test_encoder_parity.py",
+    "source": "gastric",
+    "source_file": "tests/test_encoder_parity.py"
+  },
+  {
+    "path": "tests/test_evaluation.py",
+    "source": "gastric",
+    "source_file": "tests/test_evaluation.py"
+  },
+  {
+    "path": "tests/test_future_comparators.py",
+    "source": "gastric",
+    "source_file": "tests/test_future_comparators.py"
+  },
+  {
+    "path": "tests/test_gastric_roi.py",
+    "source": "gastric",
+    "source_file": "tests/test_gastric_roi.py"
+  },
+  {
+    "path": "tests/test_generated651.py",
+    "source": "gastric",
+    "source_file": "tests/test_generated651.py"
+  },
+  {
+    "path": "tests/test_generated700.py",
+    "source": "gastric",
+    "source_file": "tests/test_generated700.py"
+  },
+  {
+    "path": "tests/test_generated_s1.py",
+    "source": "gastric",
+    "source_file": "tests/test_generated_s1.py"
+  },
+  {
+    "path": "tests/test_generated_workflow.py",
+    "source": "gastric",
+    "source_file": "tests/test_generated_workflow.py"
+  },
+  {
+    "path": "tests/test_inference.py",
+    "source": "gastric",
+    "source_file": "tests/test_inference.py"
+  },
+  {
+    "path": "tests/test_losses.py",
+    "source": "gastric",
+    "source_file": "tests/test_losses.py"
+  },
+  {
+    "path": "tests/test_paired_ct_cohort.py",
+    "source": "gastric",
+    "source_file": "tests/test_paired_ct_cohort.py"
+  },
+  {
+    "path": "tests/test_real_survival.py",
+    "source": "gastric",
+    "source_file": "tests/test_real_survival.py"
+  },
+  {
+    "path": "tests/test_real_workflow.py",
+    "source": "gastric",
+    "source_file": "tests/test_real_workflow.py"
+  },
+  {
+    "path": "tests/test_release_scan.py",
+    "source": "gastric",
+    "source_file": "tests/test_release_scan.py"
+  },
+  {
+    "path": "tests/test_runtime_cli.py",
+    "source": "gastric",
+    "source_file": "tests/test_runtime_cli.py"
+  },
+  {
+    "path": "tests/test_s1_only.py",
+    "source": "gastric",
+    "source_file": "tests/test_s1_only.py"
+  },
+  {
+    "path": "tests/test_survival.py",
+    "source": "gastric",
+    "source_file": "tests/test_survival.py"
+  },
+  {
+    "path": "tests/test_survival_edge_cases.py",
+    "source": "gastric",
+    "source_file": "tests/test_survival_edge_cases.py"
+  },
+  {
+    "path": "tests/test_survival_pycox_optional.py",
+    "source": "gastric",
+    "source_file": "tests/test_survival_pycox_optional.py"
+  },
+  {
+    "path": "tests/test_swinunetr_runtime.py",
+    "source": "gastric",
+    "source_file": "tests/test_swinunetr_runtime.py"
+  },
+  {
+    "path": "tests/test_synthetic_cli_integration.py",
+    "source": "gastric",
+    "source_file": "tests/test_synthetic_cli_integration.py"
+  },
+  {
+    "path": "tests/test_synthetic_outcome_lineage.py",
+    "source": "gastric",
+    "source_file": "tests/test_synthetic_outcome_lineage.py"
+  },
+  {
+    "path": "tests/test_synthetic_training_inference_parity.py",
+    "source": "gastric",
+    "source_file": "tests/test_synthetic_training_inference_parity.py"
+  },
+  {
+    "path": "tests/test_training.py",
+    "source": "gastric",
+    "source_file": "tests/test_training.py"
+  },
+  {
+    "path": "tests/test_treatment_regimens.py",
+    "source": "gastric",
+    "source_file": "tests/test_treatment_regimens.py"
+  },
+  {
+    "path": "tests/test_treatment_summary.py",
+    "source": "gastric",
+    "source_file": "tests/test_treatment_summary.py"
+  },
+  {
+    "path": "tests/test_tumor_export.py",
+    "source": "gastric",
+    "source_file": "tests/test_tumor_export.py"
+  },
+  {
+    "path": "tests/test_tumor_roi.py",
+    "source": "gastric",
+    "source_file": "tests/test_tumor_roi.py"
+  },
+  {
+    "path": "tests/test_world_model.py",
+    "source": "gastric",
+    "source_file": "tests/test_world_model.py"
+  }
+]

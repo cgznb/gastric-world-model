@@ -1,0 +1,92 @@
+project:
+  name: stageworld_gc
+  mode: synthetic
+paths:
+  clinical_excel: null
+  reference_pdf: null
+  ct_root: null
+  pathology_root: null
+  approved_data_root: null
+  output_root: artifacts/synthetic
+privacy:
+  allow_phi_in_agent_context: false
+  allow_external_tracking: false
+  allow_network_during_training: false
+  identity_map_outside_repo: true
+permissions:
+  allow_weight_download: false
+  allow_remote_code: false
+  allow_long_training: false
+  approved_weight_licenses: []
+clinical:
+  cohort_definition: null
+  primary_endpoint: os
+  os_event_mapping: null
+  baseline_origin_definition: null
+  stage0_definition: null
+  stage1_definition: null
+  stage2_definition: null
+  pathology_availability_basis: null
+  recurrence_definition: null
+  pcr_definition: null
+  clinical_signoff_version: null
+model:
+  ct_encoder: merlin
+  pathology_encoder: titan_conch_v1_5
+  pathology_alternatives:
+  - uni2_h_mil
+  - prism2_base
+  freeze_foundation_encoders: true
+  hidden_dim: 256
+  state_tokens: 24
+  stochastic_dim_per_token: 16
+  use_stochastic_state: true
+  attention_heads: 8
+  transition_blocks: 4
+  observation_blocks: 2
+  resampler_blocks: 2
+  ct_tokens: 16
+  pathology_tokens: 8
+  use_llm_treatment_planner: false
+  use_pixel_generator: false
+  use_counterfactual_diversity: false
+survival:
+  parameterization: piecewise_constant_hazard_rate
+  time_unit: year
+  finite_cutpoints:
+  - 0.0
+  - 1.0
+  - 3.0
+  - 5.0
+  open_tail_interval: true
+  report_horizons_years:
+  - 1.0
+  - 3.0
+  competing_risks_enabled: false
+training:
+  phases:
+  - baseline
+  - world_pretrain
+  - joint_survival
+  seed: 17
+  comparison_seeds:
+  - 17
+  - 43
+  - 97
+  patient_batch_size: 16
+  optimizer: adamw
+  lr: 0.0002
+  weight_decay: 0.01
+  grad_clip_norm: 1.0
+  mixed_precision: auto
+  target_encoder_policy: frozen_external
+  patient_normalized_losses: true
+  checkpoint_selection: preregistered_stage_average_validation_ibs
+  smoke_max_steps: 20
+  smoke_max_minutes: 5
+evaluation:
+  split_strategy: null
+  external_manifest: null
+  patient_level_resampling: true
+  forbid_test_tuning: true
+  report_non_estimable_metrics: true

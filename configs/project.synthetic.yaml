@@ -1,0 +1,104 @@
+project:
+  name: stageworld_gc_synthetic
+  mode: synthetic
+  schema_version: '1.0'
+paths:
+  clinical_excel: null
+  reference_pdf: null
+  ct_root: null
+  pathology_root: null
+  feature_root: ${oc.env:STAGEWORLD_SYNTHETIC_OUTPUT,artifacts/synthetic/demo}/features
+  approved_data_root: null
+  output_root: ${oc.env:STAGEWORLD_SYNTHETIC_OUTPUT,artifacts/synthetic/demo}
+privacy:
+  allow_phi_in_agent_context: false
+  allow_external_tracking: false
+  allow_network_during_training: false
+  identity_map_outside_repo: true
+permissions:
+  allow_weight_download: false
+  allow_remote_code: false
+  allow_long_training: false
+  approved_weight_licenses: []
+clinical:
+  cohort_definition: fully_fictional_stageworld_contract_v1
+  primary_endpoint: os
+  os_event_mapping:
+    event: 1
+    censored: 0
+  baseline_origin_definition: synthetic_day_zero
+  stage0_definition: synthetic_baseline_ct_available
+  stage1_definition: synthetic_post_treatment_ct_available
+  stage2_definition: synthetic_pathology_available_if_operated
+  pathology_availability_basis: synthetic_observed_or_not_applicable
+  recurrence_definition: null
+  pcr_definition: synthetic_binary_response_for_auxiliary_testing_only
+  clinical_signoff_version: synthetic_contract_v1
+  endpoint_confirmed: true
+  time_contract_confirmed: true
+model:
+  ct_encoder: synthetic_ct
+  pathology_encoder: synthetic_pathology
+  pathology_alternatives: []
+  freeze_foundation_encoders: true
+  hidden_dim: 32
+  state_tokens: 6
+  stochastic_dim_per_token: 4
+  use_stochastic_state: true
+  attention_heads: 4
+  transition_blocks: 2
+  observation_blocks: 2
+  resampler_blocks: 1
+  ct_tokens: 4
+  pathology_tokens: 3
+  clinical_input_dim: 8
+  action_input_dim: 8
+  ct_input_dim: 32
+  pathology_input_dim: 32
+  use_llm_treatment_planner: false
+  use_pixel_generator: false
+  use_counterfactual_diversity: false
+survival:
+  parameterization: piecewise_constant_hazard_rate
+  time_unit: year
+  finite_cutpoints:
+  - 0.0
+  - 1.0
+  - 3.0
+  - 5.0
+  open_tail_interval: true
+  report_horizons_years:
+  - 1.0
+  - 3.0
+  competing_risks_enabled: false
+  num_causes: 1
+training:
+  phases:
+  - baseline
+  - world_pretrain
+  - joint_survival
+  seed: 17
+  comparison_seeds:
+  - 17
+  - 43
+  - 97
+  patient_batch_size: 8
+  optimizer: adamw
+  lr: 0.0005
+  weight_decay: 0.01
+  grad_clip_norm: 1.0
+  mixed_precision: 'off'
+  target_encoder_policy: frozen_external
+  patient_normalized_losses: true
+  checkpoint_selection: preregistered_stage_average_validation_loss
+  smoke_max_steps: 20
+  smoke_max_minutes: 5
+  world_pretrain_steps: 12
+  joint_survival_steps: 16
+evaluation:
+  split_strategy: synthetic_patient_stratified
+  external_manifest: null
+  patient_level_resampling: true
+  forbid_test_tuning: true
+  report_non_estimable_metrics: true
+  bootstrap_replicates: 100
