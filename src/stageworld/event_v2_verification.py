@@ -17,7 +17,7 @@ from stageworld.event_training import recurrence_weight
 from stageworld.event_v2_inference import predict_bundle
 from stageworld.event_v2_spec import TASK
 from stageworld.event_v2_splits import validate_split
-from stageworld.event_v2_training import build_model, score
+from stageworld.event_v2_training import build_model, infer, score
 from stageworld.event_v2_workflow import development_partition, freeze_selection, subset_pool
 from stageworld.event_workflow import ct_report, endpoint_metrics
 
@@ -45,8 +45,42 @@ def _load(path: Path) -> dict:
 
 
 def _close(actual: torch.Tensor, expected: torch.Tensor, name: str, atol: float = 1e-5) -> None:
-    if actual.shape != expected.shape or not torch.allclose(actual, expected, atol=atol, rtol=1e-5):
+    if (
+        actual.shape != expected.shape
+        or not torch.isfinite(actual).all()
+        or not torch.isfinite(expected).all()
+        or not torch.allclose(actual, expected, atol=atol, rtol=1e-5)
+    ):
         raise ValueError(f"Independent {name} replay differs")
+
+
+def _compare_test_replay(replay: dict, predicted: dict, *, cross_device: bool) -> dict[str, float]:
+    members, expected = replay["member_logits"], predicted["member_logits"]
+    if (
+        members.shape != expected.shape
+        or members.ndim != 3
+        or not members.numel()
+        or not torch.isfinite(members).all()
+        or not torch.isfinite(expected).all()
+    ):
+        raise ValueError("Independent member logits have invalid shapes or nonfinite values")
+    name = "member_probabilities" if cross_device else "member_logits"
+    actual_members = members.double().sigmoid() if cross_device else members
+    expected_members = expected.double().sigmoid() if cross_device else expected
+    _close(actual_members, expected_members, name)
+    errors = {name: float((actual_members.double() - expected_members.double()).abs().max())}
+    for key in ("probabilities", "member_disagreement", "ct1"):
+        _close(replay[key], predicted[key], key, 5e-5 if key == "ct1" else 1e-5)
+        errors[key] = float((replay[key].double() - predicted[key].double()).abs().max())
+    decisions = replay["probabilities"] >= 0.5
+    if not torch.equal(decisions, predicted["probabilities"] >= 0.5) or (
+        "decisions" in replay and not torch.equal(replay["decisions"], decisions)
+    ):
+        raise ValueError("Fixed-threshold test decisions differ")
+    for key in ("last_stage", "incomplete_history"):
+        if not torch.equal(replay[key], predicted[key]):
+            raise ValueError("Test event-history outputs differ")
+    return errors
 
 
 def predict_without_sources(root: Path, *args) -> dict:
@@ -89,6 +123,9 @@ def _verify(pool: EventPool, root: Path) -> dict:
     freeze_time = datetime.fromisoformat(frozen["time_utc"]).timestamp()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     phases = replays = bundles = metric_groups = logistic_replays = 0
+    same_device_replays = member_probability_replays = 0
+    same_device_errors: dict[str, float] = {}
+    cross_device_errors: dict[str, float] = {}
     records, generation = [], []
     for seed in spec["seeds"]:
         partition = root / "partitions" / f"seed-{seed}"
@@ -195,6 +232,14 @@ def _verify(pool: EventPool, root: Path) -> dict:
                 or predicted["reporting_partition"] != "test"
             ):
                 raise ValueError("Test prediction checkpoint binding differs")
+            model = build_model(family, selected["contract"]["dimensions"]).to(device).eval()
+            model.load_state_dict(selected["model_state"], strict=True)
+            direct = infer(model, test_x, test, rows)
+            errors = _compare_test_replay(direct, predicted, cross_device=False)
+            for key, value in errors.items():
+                same_device_errors[key] = max(same_device_errors.get(key, 0.0), value)
+            same_device_replays += 1
+            del model, direct
             bundle = _load(output / "bundle/inference.pt")
             if (
                 bundle["task"] != TASK
@@ -215,14 +260,10 @@ def _verify(pool: EventPool, root: Path) -> dict:
                 test.events,
                 test.base.ct0,
             )
-            for key in ("probabilities", "member_logits", "member_disagreement"):
-                _close(replay[key], predicted[key], key)
-            _close(replay["ct1"], predicted["ct1"], "CT features", 5e-5)
-            if not torch.equal(replay["decisions"], predicted["probabilities"] >= 0.5):
-                raise ValueError("Fixed-threshold test decisions differ")
-            for key in ("last_stage", "incomplete_history"):
-                if not torch.equal(replay[key], predicted[key]):
-                    raise ValueError("Test event-history outputs differ")
+            errors = _compare_test_replay(replay, predicted, cross_device=True)
+            for key, value in errors.items():
+                cross_device_errors[key] = max(cross_device_errors.get(key, 0.0), value)
+            member_probability_replays += 1
             endpoints = endpoint_metrics(test, rows, predicted["probabilities"])
             metrics = read_json(output / "metrics.json")
             if metrics != {
@@ -292,6 +333,11 @@ def _verify(pool: EventPool, root: Path) -> dict:
         "checkpoint_score_replays": replays,
         "input_transform_refits": len(spec["seeds"]),
         "denied_source_bundles": bundles,
+        "same_device_test_replays": same_device_replays,
+        "cross_device_member_probability_replays": member_probability_replays,
+        "same_device_max_errors": same_device_errors,
+        "cross_device_max_errors": cross_device_errors,
+        "test_replay_device": str(device),
         "logistic_replays": logistic_replays,
         "endpoint_metric_groups": metric_groups,
         "optimizer_updates_during_verification": 0,

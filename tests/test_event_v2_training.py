@@ -20,7 +20,7 @@ from stageworld.event_v2_models import EventV2Model, mean_probability_logit
 from stageworld.event_v2_spec import model_dimensions, specification
 from stageworld.event_v2_splits import make_split
 from stageworld.event_v2_training import build_model, infer, objective, train_phase
-from stageworld.event_v2_verification import verify_study
+from stageworld.event_v2_verification import _compare_test_replay, verify_study
 from stageworld.event_v2_workflow import (
     development_partition,
     evaluate_tests,
@@ -318,6 +318,64 @@ def test_final_test_gate_rejects_unfrozen_or_incomplete_study(pool, tmp_path):
     assert not (tmp_path / "test").exists()
 
 
+def replay_payload(member_logits):
+    probabilities = member_logits.double().sigmoid()
+    return {
+        "member_logits": member_logits,
+        "probabilities": probabilities.mean(-1),
+        "member_disagreement": probabilities.var(-1, unbiased=False),
+        "ct1": torch.zeros(len(member_logits), 27, 8),
+        "last_stage": torch.full((len(member_logits),), 3, dtype=torch.long),
+        "incomplete_history": torch.zeros(len(member_logits), dtype=torch.bool),
+    }
+
+
+def test_cross_device_replay_checks_probability_without_weakening_same_device_logits():
+    saved = replay_payload(torch.full((1, 2, 1), 0.01))
+    replay = replay_payload(saved["member_logits"] + 1.14e-5)
+    with pytest.raises(ValueError, match="member_logits"):
+        _compare_test_replay(replay, saved, cross_device=False)
+    errors = _compare_test_replay(replay, saved, cross_device=True)
+    assert 0 < errors["member_probabilities"] < 3e-6
+    assert errors["ct1"] == 0
+
+
+def test_cross_device_member_changes_cannot_cancel_in_average():
+    saved = replay_payload(torch.tensor([[[-2.0, 2.0], [-1.0, 1.0]]]))
+    replay = replay_payload(saved["member_logits"].flip(-1))
+    assert torch.equal(replay["probabilities"], saved["probabilities"])
+    assert torch.equal(replay["member_disagreement"], saved["member_disagreement"])
+    with pytest.raises(ValueError, match="member_probabilities"):
+        _compare_test_replay(replay, saved, cross_device=True)
+
+
+@pytest.mark.parametrize("side", ["replay", "saved"])
+@pytest.mark.parametrize("corruption", ["nan", "inf", "shape"])
+def test_cross_device_member_replay_rejects_nonfinite_and_shape(side, corruption):
+    saved = replay_payload(torch.zeros(1, 2, 2))
+    replay = copy.deepcopy(saved)
+    target = replay if side == "replay" else saved
+    if corruption == "shape":
+        target["member_logits"] = target["member_logits"][..., :1]
+    else:
+        target["member_logits"][0, 0, 0] = float(corruption)
+    with pytest.raises(ValueError, match="invalid shapes or nonfinite"):
+        _compare_test_replay(replay, saved, cross_device=True)
+
+
+@pytest.mark.parametrize("key", ["probabilities", "member_disagreement", "ct1"])
+def test_cross_device_replay_keeps_existing_float_thresholds_and_rejects_infinity(key):
+    saved = replay_payload(torch.zeros(1, 2, 2))
+    replay = copy.deepcopy(saved)
+    replay[key].fill_(0.01)
+    with pytest.raises(ValueError, match=key):
+        _compare_test_replay(replay, saved, cross_device=True)
+    saved[key].fill_(torch.inf)
+    replay[key].fill_(torch.inf)
+    with pytest.raises(ValueError, match=key):
+        _compare_test_replay(replay, saved, cross_device=True)
+
+
 def test_two_seed_full_workflow_freezes_every_fit_before_testing(pool, tmp_path, monkeypatch):
     root = tmp_path / "study"
     spec = {**specification(), "patients": 160, "seeds": [17, 43], "max_epochs": 1}
@@ -382,6 +440,10 @@ def test_two_seed_full_workflow_freezes_every_fit_before_testing(pool, tmp_path,
     assert verification["status"] == "passed"
     assert verification["checkpoint_score_replays"] == 16
     assert verification["optimizer_updates_during_verification"] == 0
+    assert verification["same_device_test_replays"] == 4
+    assert verification["cross_device_member_probability_replays"] == 4
+    assert all(value == 0 for value in verification["same_device_max_errors"].values())
+    assert all(value == 0 for value in verification["cross_device_max_errors"].values())
     metrics_path = root / "test/event_v2/seed-17/metrics.json"
     altered = read_json(metrics_path)
     altered["endpoints"]["recurrence"]["tp"] += 1
