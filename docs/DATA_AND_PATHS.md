@@ -39,6 +39,29 @@ ROI32 还需要已有配准变换；变换读取辅助源码包含在 `support/r
 
 ## 胃癌输入
 
+### 当前事件模型
+
+`run_event_multistage.py` 的参数与旧版来源缓存参数需要区分：
+
+| 参数 | 实际输入/输出 |
+|---|---|
+| `--source-pool` | 已准备的651人目录，内含`pool.pt`和`folds.json`，不是700人pool文件 |
+| `--bindings` | 私有JSON，指定临床Excel和已有患者HMAC密钥文件的位置 |
+| `--pool` | 本轮事件缓存目录，写入`events.pt`和聚合`audit.json` |
+| `--output` | 本轮模型、恢复状态、预测包和评估目录 |
+
+使用 `configs/event_bindings.example.json` 创建 `configs/event_bindings.local.json`，
+本地JSON已被Git忽略。`STAGEWORLD_CLINICAL_EXCEL`和`STAGEWORLD_HMAC_KEY_FILE`
+填写绝对文件路径，不填写密钥内容，也不使用`@repo`、环境变量占位等未解析标记。
+HMAC密钥必须与源pool构建时一致，否则患者键无法对齐。
+实际字段绑定、事件冲突规则和标签语义见 [多阶段协议](EVENT_MULTISTAGE.md)。
+
+准备阶段会核对临床表标签与源pool，并沿用同一份五折划分；`--prepare-only`不训练。
+正式训练和完整`--verify-only`需要支持BF16的CUDA；已导出的独立推理包可以在CPU使用。
+恢复要求本轮源码大小/修改时间不变。升级仓库后应使用新的实验输出目录，保留旧源码用于旧任务恢复。
+
+### 既有缓存与旧版入口
+
 `run_generated651.py` 的 `--source-pool` 是700人来源缓存，包含有序样本、临床与治疗字段、CT0/CT1
 特征及标签可用掩膜；读取合同见 `generated700_data.Pool` 与 `generated651_data.prepare_pool`。
 `--pool` 是新生成的完整病例缓存目录，`--output` 是该实验输出目录。

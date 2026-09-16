@@ -105,6 +105,11 @@
     "source_file": "docs/CLARITY_LICENSE.txt"
   },
   {
+    "path": "docs/EVENT_MULTISTAGE.md",
+    "source": "gastric_event_multistage",
+    "source_file": "docs/EVENT_MULTISTAGE.md"
+  },
+  {
     "path": "docs/GENERATED_V2_ARCHITECTURE.md",
     "source": "gastric",
     "source_file": "docs/GENERATED_V2_ARCHITECTURE.md"
@@ -173,6 +178,11 @@
     "path": "scripts/run_coarse_roi_pipeline.py",
     "source": "gastric",
     "source_file": "scripts/run_coarse_roi_pipeline.py"
+  },
+  {
+    "path": "scripts/run_event_multistage.py",
+    "source": "gastric_event_multistage",
+    "source_file": "scripts/run_event_multistage.py"
   },
   {
     "path": "scripts/run_generated651.py",
@@ -520,6 +530,46 @@
     "source_file": "src/stageworld/evaluation.py"
   },
   {
+    "path": "src/stageworld/event_data.py",
+    "source": "gastric_event_multistage",
+    "source_file": "src/stageworld/event_data.py"
+  },
+  {
+    "path": "src/stageworld/event_evaluation.py",
+    "source": "gastric_event_multistage",
+    "source_file": "src/stageworld/event_evaluation.py"
+  },
+  {
+    "path": "src/stageworld/event_inference.py",
+    "source": "gastric_event_multistage",
+    "source_file": "src/stageworld/event_inference.py"
+  },
+  {
+    "path": "src/stageworld/event_models.py",
+    "source": "gastric_event_multistage",
+    "source_file": "src/stageworld/event_models.py"
+  },
+  {
+    "path": "src/stageworld/event_spec.py",
+    "source": "gastric_event_multistage",
+    "source_file": "src/stageworld/event_spec.py"
+  },
+  {
+    "path": "src/stageworld/event_training.py",
+    "source": "gastric_event_multistage",
+    "source_file": "src/stageworld/event_training.py"
+  },
+  {
+    "path": "src/stageworld/event_verification.py",
+    "source": "gastric_event_multistage",
+    "source_file": "src/stageworld/event_verification.py"
+  },
+  {
+    "path": "src/stageworld/event_workflow.py",
+    "source": "gastric_event_multistage",
+    "source_file": "src/stageworld/event_workflow.py"
+  },
+  {
     "path": "src/stageworld/future_comparators.py",
     "source": "gastric",
     "source_file": "src/stageworld/future_comparators.py"
@@ -828,6 +878,11 @@
     "path": "tests/test_evaluation.py",
     "source": "gastric",
     "source_file": "tests/test_evaluation.py"
+  },
+  {
+    "path": "tests/test_event_multistage.py",
+    "source": "gastric_event_multistage",
+    "source_file": "tests/test_event_multistage.py"
   },
   {
     "path": "tests/test_future_comparators.py",

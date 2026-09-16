@@ -10,6 +10,7 @@ build/
 dist/
 paths.local.yaml
 *.local.yaml
+*.local.json
 .env
 .env.*
 !.env.example

@@ -1,0 +1,4 @@
+{
+  "STAGEWORLD_CLINICAL_EXCEL": "/path/to/private/clinical.xlsx",
+  "STAGEWORLD_HMAC_KEY_FILE": "/path/to/private/existing_patient_hmac.key"
+}

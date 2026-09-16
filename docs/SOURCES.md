@@ -5,10 +5,12 @@ Snapshot date: 2026-09-16. No original Git history is included.
 | Source key / destination | Original project | Version context | License context |
 |---|---|---|---|
 | `gastric` / `.` | gastric_generated651_cv5_10seeds_20260916/source | complete651 generated V2 | Research code; third-party components retain their own licenses |
+| `gastric_event_multistage` / event modules, entrypoint, tests and protocol | gastric_event_multistage_20260916/source | event-only S0-S3, complete651 fivefold ten seeds | Same research-code and retained third-party terms |
 
 ## Packaging Changes
 
 - Original Python module names, model mathematics, losses and tensor contracts are retained.
+- The event update copies its eight runtime modules, runner and synthetic tests without changing their contents; its protocol and release documentation describe portable execution.
 - Absolute source and artifact paths are resolved through `research_release.py` and private local settings.
 - Old SSH-script introspection is replaced by explicit local SSH settings.
 - Historical identity values and cohort exclusions are not emitted into release configs; real asset checks remain strict.

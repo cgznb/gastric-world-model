@@ -2,19 +2,32 @@
 
 | 版本 | 入口 | 协议 |
 |---|---|---|
-| Complete651 Generated V2（主线） | `scripts/run_generated651.py` | 完整 CT 对与双标签交集，固定五折、十种子、三个联合训练损失分支 |
+| Event Multistage（当前主线） | `scripts/run_event_multistage.py` | 沿用651人及五折十种子，三个事件转移、S2辅助pCR、最终状态复发；50次预训练+50次联合训练 |
+| Complete651 Generated V2（前一版） | `scripts/run_generated651.py` | 完整 CT 对与双标签交集，固定五折、十种子、三个联合训练损失分支 |
 | Generated V2 700 人 | `scripts/run_generated700.py` | 保留缺失掩膜、内层选择/重拟合协议与联合/冻结对照；不能与651结果直接归因比较 |
 | Binary700 | `scripts/run_binary700.py` | 早期二分类生成特征与临床基线方向 |
 | 临床及损失基线 | `binary700_statistics.py`、`generated651_workflow.py` | 训练折拟合普通 logistic anchor；同折评估 |
-| 历史 StageWorld-GC | `src/stageworld/model`、生存与 CT 准备模块 | 历史架构及可复用数据组件，不是651主入口的三阶段运行声明 |
+| 历史 StageWorld-GC | `src/stageworld/model`、生存与 CT 准备模块 | 历史架构及可复用数据组件，不是当前event主入口的观察更新/生存运行声明 |
+
+## Event Multistage 与 Generated V2 的区别
+
+当前事件模型从CT0与临床初始化S0，再按新辅助、手术、术后化疗递推S1/S2/S3。
+输入360维临床/治疗向量及独立的三事件编码，无日期或周期、无logistic anchor。
+预训练目标为CT+0.5pCR；联合目标为加权复发+0.5pCR+0.1CT，按复发AUPRC选模。
+pCR、CT1仅作中间监督；事件缺失/未知/矛盾保持状态，未知/矛盾额外标记历史不完整。
+详细协议和数据维度见 [EVENT_MULTISTAGE.md](EVENT_MULTISTAGE.md)。
+
+前一版Generated V2使用初始/生成两个状态和含时间的361维条件，
+两个终点分别在冻结临床logistic分数上添加神经网络修正，保留三个分类损失分支。
+两版使用相同队列与折划分，不代表模型、输入权限或损失相同。
 
 ## Complete651 的汇总与信息权限
 
 每个模型种子有五个验证折；指标先逐折计算，再在该种子内取均值与样本标准差（ddof=1）。
 十个种子分别成组，禁止将十组均值再平均成主结果。无法计算的指标保留缺失和支持折数，不能当零。
 
-临床 anchor、输入变换、生成模型和分类头都按相应训练折建立。
-Swin 特征编码器冻结；各损失分支从同折同种子的 world pretrain 独立开始联合微调。
+前一版的临床anchor、两版的输入变换、生成模型和分类头都按相应训练折建立。
+Swin特征编码器冻结；联合训练从同折同种子的最佳预训练模型开始。
 推理只使用允许的基线输入，CT1 是训练监督，不能由预测入口回读。
 
 同一个验证折用于选择检查点和报告指标，因此这里是开发验证估计。

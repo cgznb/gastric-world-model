@@ -1,18 +1,29 @@
 # 发布验证
 
-日期：2026-09-16。使用独立 venv 解释器和已有第三方依赖；源码从本仓库加载，CUDA 不可见。
+日期：2026-09-16，包含最新 Event Multistage 增量发布。
+使用独立 venv 解释器和已有第三方依赖；源码从本仓库加载，CUDA 不可见。
 
 | 检查 | 结果 |
 |---|---|
+| event_multistage | 14 passed |
 | generated651、generated700、binary700、binary_improvement | 47 passed |
 | 发布路径与私有配置 | 7 passed |
-| 主要 CLI 帮助入口 | 5/5 passed |
+| 以上合成测试合计 | 68 passed |
+| 主要 CLI 帮助入口（含 event） | 6/6 passed |
 | editable 安装 | passed（不重复安装第三方依赖） |
+| 发布清单与实际文件 | 218 个文件一致 |
+| 新增 event Python 文件与训练源码 | 10 个文件逐字节一致 |
+| 新增 event 代码 Ruff | passed（10 个文件） |
+| 新增 event 运行代码 mypy | passed（9 个文件，第三方无类型声明的导入除外） |
 
 测试包含患者完整病例交集、五折覆盖与隔离、训练折变换/anchor、未来输入限制、短训练、恢复、
-独立 bundle 重放和每种子五折汇总。输入均由测试构造；没有读取真实患者缓存或重新训练正式模型。
+独立 bundle 重放和每种子五折汇总。新增事件测试覆盖事件跳过、前缀不变性、梯度路由、
+缺失目标掩膜、预训练/联合训练精确恢复、禁止源文件读取的独立推理和合成五折流程。
+输入均由测试构造；没有读取真实患者缓存或重新训练正式模型。
 
 验证环境主要版本：Python 3.12、PyTorch 2.12.1、NumPy 2.4.6、scikit-learn 1.9.0。
+静态工具为 Ruff 0.16.7、mypy 2.3.1；mypy 使用 `--follow-imports=silent`
+和 `--disable-error-code=import-untyped`，不宣称检查了没有类型声明的 scikit-learn 内部实现。
 这不是全部历史测试、所有可选基础模型或所有环境组合的通过声明。
 真实 CT 提取、GPU 正式训练、700/651 人临床结果复现和外部模型权重验证未在本次运行。
 
